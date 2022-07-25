@@ -47,6 +47,8 @@
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
+    "highcharts": "^10.2.0",
+    "prettier": "^2.7.1",
+    "recharts": "^2.1.12"
   }
 }
