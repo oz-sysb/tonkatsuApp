@@ -2,26 +2,37 @@ import { useEffect, useState } from 'react';
 import Style from './style.module.css';
 
 const App = () => {
-  const [data, setData] = useState([]);
-  const URI =
+  const [prefCode, setPrefCode] = useState([]);
+  const [pop, setPOP] = useState([]);
+  const PREF_URI = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
+  const POP_URI =
     'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=11';
 
   useEffect(() => {
-    if (process.env.REACT_APP_API_KEY === undefined) return;
-    async function fetchData() {
+    async function fetchPrefCode() {
+      const res = await fetch(PREF_URI, {
+        headers: { 'x-api-key': process.env.REACT_APP_API_KEY ?? '' },
+      });
+      const jsonObj = await res.json();
+      setPrefCode(jsonObj.result.data);
+      return res;
+    }
+    async function fetchPop() {
       const res = await fetch(
-        URI,
+        POP_URI,
         // TODO: prefCodeを動的に取得する必要がある
         { headers: { 'x-api-key': process.env.REACT_APP_API_KEY ?? '' } }
       );
       const jsonObj = await res.json();
-      setData(jsonObj.result.data);
+      setPOP(jsonObj.result.data);
       return res;
     }
-    fetchData();
+    fetchPrefCode();
+    fetchPop();
   }, []);
 
-  console.log('data:', data);
+  console.log('prefCode:', prefCode);
+  console.log('pop:', pop);
 
   return (
     <div className={Style.appWrapper}>
