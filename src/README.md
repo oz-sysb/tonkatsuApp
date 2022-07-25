@@ -41,8 +41,17 @@ study-202207@0.1.0 /Users/ozv-y-amano/Study/study-202207
 
 ## API 取得
 
-```
+```sh
 curl -H "X-API-KEY:<APIキー>" "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=11" | jq
+```
+
+## .vscode/settings.json の設定
+
+```json
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}
 ```
 
 ## 参考にした記事
