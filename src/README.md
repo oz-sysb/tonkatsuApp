@@ -42,3 +42,4 @@ curl -H "X-API-KEY:<APIキー>" "xxxxxxxxxxxxxxxxxxxxxxxxx" | jq
 - [npm install / yarn add でパッケージをインストールする](https://qiita.com/rearail/items/859a717990b39779bb6c)
 - [【入門】create-react-app で React と TypeScript 環境を構築](https://mo-gu-mo-gu.com/create-react-app-typescript/)
 - [2021-04-06VSCode 保存時に Prettier の自動フォーマットが効かなくなった件](https://chaika.hatenablog.com/entry/2021/04/06/101500)
+- [[React + Google Maps API] @react-google-maps/api を使った地図アプリをローカルで起動してみた](https://dev.classmethod.jp/articles/launching-a-map-app-using-react-google-maps-api-locally/)
