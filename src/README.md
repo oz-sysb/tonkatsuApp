@@ -2,6 +2,32 @@
 
 勉強会で「とんかつアプリ」を作ります。
 
+# バージョン確認
+
+```sh
+$ npm list --depth=0
+.
+├── @react-google-maps/api@2.12.1
+├── @testing-library/jest-dom@5.16.4
+├── @testing-library/react@13.3.0
+├── @testing-library/user-event@13.5.0
+├── @types/jest@27.5.2
+├── @types/node@16.11.45
+├── @types/react-dom@18.0.6
+├── @types/react@18.0.15
+├── @typescript-eslint/eslint-plugin@5.31.0
+├── @typescript-eslint/parser@5.31.0
+├── eslint-config-prettier@8.5.0
+├── eslint-plugin-prettier@4.2.1
+├── eslint@8.20.0
+├── prettier@2.7.1
+├── react-dom@18.2.0
+├── react-scripts@5.0.1
+├── react@18.2.0
+├── typescript@4.7.4
+└── web-vitals@2.1.4
+```
+
 # コマンド
 
 ## node のバージョン変更
