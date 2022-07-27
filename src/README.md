@@ -2,6 +2,10 @@
 
 勉強会で「とんかつアプリ」を作ります。
 
+# デプロイリンク
+
+https://62e16e9dd4cf010081b83a5f--cool-cajeta-dab75f.netlify.app/
+
 # バージョン確認
 
 ```sh
