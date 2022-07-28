@@ -19,7 +19,7 @@ function App() {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={17}
+          zoom={16}
         ></GoogleMap>
       </LoadScript>
     </div>
