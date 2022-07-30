@@ -34,13 +34,13 @@ $ npm list --depth=0
 
 # コマンド
 
-## node のバージョン変更
+# node のバージョン変更
 
 ```sh
 $ nodebrew use v16.6.1
 ```
 
-## サーバ起動
+# サーバ起動
 
 ```sh
 $ npm start
