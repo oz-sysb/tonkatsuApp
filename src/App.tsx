@@ -1,5 +1,4 @@
-import Style from './style.module.css';
-import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
+import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useEffect } from 'react';
 
 const containerStyle = {
