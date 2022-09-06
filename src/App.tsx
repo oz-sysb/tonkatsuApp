@@ -1,5 +1,5 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const containerStyle = {
   width: '400px',
@@ -12,17 +12,9 @@ const center = {
   lng: 139.76345088596605,
 };
 
-const positionAkiba = {
-  lat: 35.6936798374727,
-  lng: 139.78345088596608,
-};
-
-const positionIwamotocho = {
-  lat: 35.6936798374728,
-  lng: 139.79345088596608,
-};
-
 function App() {
+  const [positions, setPositions] = useState<any[]>([]);
+
   useEffect(() => {
     var tokyo = new google.maps.LatLng(35.6936798374726, 139.76345088596605);
 
@@ -35,25 +27,52 @@ function App() {
     service.nearbySearch(
       {
         keyword: 'とんかつ',
+        // wework神田
         location: { lat: 35.6936798374726, lng: 139.76345088596605 },
         radius: 300,
       },
-      function (results) {
-        console.log(results);
+      async function (results) {
+        const tmp: any = [];
+        console.log(
+          'results',
+          results,
+          'lat',
+          results![0].geometry?.location?.lat(),
+          'lng',
+          results![0].geometry?.location?.lng()
+        );
+        results?.forEach((result) => {
+          tmp.push({
+            lat: result.geometry?.location?.lat(),
+            lng: result.geometry?.location?.lng(),
+          });
+        });
+        console.log('a', tmp);
+        console.log('positions', positions);
+        await setPositions(tmp);
       }
     );
   }, []);
 
   return (
-    <GoogleMap
-      id="map"
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={17}
-    >
-      <MarkerF position={positionAkiba} />
-      <MarkerF position={positionIwamotocho} />
-    </GoogleMap>
+    <>
+      <div>
+        a
+        {positions.map((i, index) => (
+          <div key={index}>{i.lng as number}</div>
+        ))}
+      </div>
+      <GoogleMap
+        id="map"
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={17}
+      >
+        {positions.map((i, index) => (
+          <MarkerF key={index} position={i} />
+        ))}
+      </GoogleMap>
+    </>
   );
 }
 
