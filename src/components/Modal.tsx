@@ -4,12 +4,15 @@ import {
   ModalContent,
   ModalBody,
   ModalCloseButton,
+  Box,
+  Image,
 } from '@chakra-ui/react';
+import { Data } from '../App';
 
 type Prop = {
   isOpen: boolean;
   onClose: () => void;
-  name: string;
+  data?: Data;
 };
 
 const MyModal = (props: Prop) => {
@@ -20,7 +23,14 @@ const MyModal = (props: Prop) => {
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <div>{props.name}</div>
+            {props.data && (
+              <div>
+                {props.data.name}
+                <Box boxSize="sm">
+                  <Image src={props.data.photo} />
+                </Box>
+              </div>
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>
