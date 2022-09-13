@@ -16,6 +16,7 @@ const center = {
 
 function App() {
   const [positions, setPositions] = useState<any[]>([]);
+  const [name, setName] = useState<string>('');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const setTonkatsuPositions = async (map: google.maps.Map) => {
@@ -42,10 +43,7 @@ function App() {
             );
             results?.forEach((result) => {
               console.log('reviews:' + result.reviews);
-              // console.log(
-              //   'photos:' +
-              //     result.photos![0].getUrl()
-              // );
+              // console.log('photos:' + result.photos![0].getUrl());
               tmp.push({
                 lat: result.geometry!.location!.lat(),
                 lng: result.geometry!.location!.lng(),
@@ -73,10 +71,18 @@ function App() {
       >
         {positions.length > 0 &&
           positions.map((i, index) => (
-            <MarkerF key={index} position={i} label={i.name} onClick={onOpen} />
+            <MarkerF
+              key={index}
+              position={i}
+              label={i.name}
+              onClick={() => {
+                setName(i.name);
+                onOpen();
+              }}
+            />
           ))}
       </GoogleMap>
-      <Modal isOpen={isOpen} onClose={onClose} />
+      <Modal isOpen={isOpen} onClose={onClose} name={name} />
     </>
   );
 }

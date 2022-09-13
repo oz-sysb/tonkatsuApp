@@ -9,6 +9,7 @@ import {
 type Prop = {
   isOpen: boolean;
   onClose: () => void;
+  name: string;
 };
 
 const MyModal = (props: Prop) => {
@@ -19,7 +20,7 @@ const MyModal = (props: Prop) => {
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <div>モーダルだよ</div>
+            <div>{props.name}</div>
           </ModalBody>
         </ModalContent>
       </Modal>
