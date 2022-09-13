@@ -1,17 +1,7 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useState } from 'react';
-import MyModal from './components/Modal';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  useDisclosure,
-} from '@chakra-ui/react';
+import Modal from './components/Modal';
+import { useDisclosure } from '@chakra-ui/react';
 
 const containerStyle = {
   width: '100vw',
@@ -72,16 +62,6 @@ function App() {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
-            <MyModal />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-
       <GoogleMap
         id="map"
         mapContainerStyle={containerStyle}
@@ -96,6 +76,7 @@ function App() {
             <MarkerF key={index} position={i} label={i.name} onClick={onOpen} />
           ))}
       </GoogleMap>
+      <Modal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
