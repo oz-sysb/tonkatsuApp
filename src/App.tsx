@@ -1,7 +1,7 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useState } from 'react';
 import Modal from './components/Modal';
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, Spinner, Center } from '@chakra-ui/react';
 
 const containerStyle = {
   width: '100vw',
@@ -27,7 +27,6 @@ function App() {
   const [currentPosition, setCurrentPosition] = useState<Location>();
 
   const success: PositionCallback = (pos) => {
-    console.log('pos:', pos);
     setCurrentPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
   };
 
@@ -37,16 +36,18 @@ function App() {
 
   navigator.geolocation.getCurrentPosition(success, fail);
 
-  const setTonkatsuPositions = async (map: google.maps.Map) => {
+  const setTonkatsuPositions = async (
+    map: google.maps.Map,
+    currentPos: Location
+  ) => {
     var service = new google.maps.places.PlacesService(map);
 
     const r = await new Promise<Data[]>((resolve) => {
       service.nearbySearch(
         {
           keyword: 'とんかつ',
-          // wework神田
-          location: { lat: 35.6936798374726, lng: 139.76345088596605 },
-          radius: 300,
+          location: currentPos,
+          radius: 2000,
         },
         (results) => {
           const tmp: Data[] = [];
@@ -59,7 +60,6 @@ function App() {
             results![0].geometry?.location?.lng()
           );
           results?.forEach((result) => {
-            // console.log('reviews:' + result.reviews);
             const resultPhoto =
               result.photos && result.photos.length > 0
                 ? result.photos![0].getUrl()
@@ -70,7 +70,6 @@ function App() {
               name: result.name!,
               photo: resultPhoto,
             });
-            console.log('photos:' + resultPhoto);
           });
           resolve(tmp);
         }
@@ -78,6 +77,13 @@ function App() {
     });
     setPositions(r);
   };
+
+  if (!currentPosition)
+    return (
+      <Center h="100vh">
+        <Spinner size="xl" />
+      </Center>
+    );
 
   return (
     <>
@@ -87,7 +93,9 @@ function App() {
         center={currentPosition}
         zoom={17}
         onLoad={(map) => {
-          setTimeout(() => setTonkatsuPositions(map));
+          setTimeout(() => {
+            setTonkatsuPositions(map, currentPosition);
+          });
         }}
       >
         {positions.length > 0 &&
