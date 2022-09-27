@@ -9,9 +9,13 @@ const containerStyle = {
 };
 
 // wework神田
+// const center = {
+//   lat: 35.6936798374726,
+//   lng: 139.76345088596605,
+// };
 const center = {
-  lat: 35.6936798374726,
-  lng: 139.76345088596605,
+  lat: 34.8441685,
+  lng: 138.2660635,
 };
 
 export type Data = {
@@ -25,6 +29,16 @@ function App() {
   const [positions, setPositions] = useState<Data[]>([]);
   const [data, setData] = useState<Data>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const success: PositionCallback = (pos) => {
+    console.log('pos:', pos);
+  };
+
+  const fail: PositionErrorCallback = (error) => {
+    window.alert('位置情報の取得に失敗しました。エラーコード：' + error.code);
+  };
+
+  navigator.geolocation.getCurrentPosition(success, fail);
 
   const setTonkatsuPositions = async (map: google.maps.Map) => {
     var service = new google.maps.places.PlacesService(map);
