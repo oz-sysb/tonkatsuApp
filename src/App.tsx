@@ -8,16 +8,6 @@ const containerStyle = {
   height: '100vh',
 };
 
-// wework神田
-// const center = {
-//   lat: 35.6936798374726,
-//   lng: 139.76345088596605,
-// };
-const center = {
-  lat: 34.8441685,
-  lng: 138.2660635,
-};
-
 export type Data = {
   lat: number;
   lng: number;
@@ -25,13 +15,20 @@ export type Data = {
   photo: string;
 };
 
+type Location = {
+  lat: number;
+  lng: number;
+};
+
 function App() {
   const [positions, setPositions] = useState<Data[]>([]);
   const [data, setData] = useState<Data>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentPosition, setCurrentPosition] = useState<Location>();
 
   const success: PositionCallback = (pos) => {
     console.log('pos:', pos);
+    setCurrentPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
   };
 
   const fail: PositionErrorCallback = (error) => {
@@ -87,7 +84,7 @@ function App() {
       <GoogleMap
         id="map"
         mapContainerStyle={containerStyle}
-        center={center}
+        center={currentPosition}
         zoom={17}
         onLoad={(map) => {
           setTimeout(() => setTonkatsuPositions(map));
