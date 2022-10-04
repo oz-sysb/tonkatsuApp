@@ -7,12 +7,13 @@ import {
   Box,
   Image,
 } from '@chakra-ui/react';
-import { Data } from '../App';
+import { Data, Location } from '../App';
 
 type Prop = {
   isOpen: boolean;
   onClose: () => void;
   data?: Data;
+  currentPosition?: Location;
 };
 
 const MyModal = (props: Prop) => {
@@ -28,6 +29,11 @@ const MyModal = (props: Prop) => {
                 {props.data.name}
                 <Box boxSize="sm">
                   <Image src={props.data.photo} />
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&origin=${props.currentPosition?.lat}%2c${props.currentPosition?.lng}&destination=${props.data.lat}%2c${props.data.lng}&travelmode=walking`}
+                  >
+                    MAPを開く
+                  </a>
                 </Box>
               </div>
             )}

@@ -15,7 +15,7 @@ export type Data = {
   photo: string;
 };
 
-type Location = {
+export type Location = {
   lat: number;
   lng: number;
 };
@@ -111,7 +111,12 @@ function App() {
             />
           ))}
       </GoogleMap>
-      <Modal isOpen={isOpen} onClose={onClose} data={data} />
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        data={data}
+        currentPosition={currentPosition}
+      />
     </>
   );
 }
