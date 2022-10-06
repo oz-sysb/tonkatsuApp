@@ -1,5 +1,5 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import { useDisclosure, Spinner, Center } from '@chakra-ui/react';
 
@@ -34,7 +34,9 @@ function App() {
     window.alert('位置情報の取得に失敗しました。エラーコード：' + error.code);
   };
 
-  navigator.geolocation.getCurrentPosition(success, fail);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, fail);
+  }, []);
 
   const setTonkatsuPositions = async (
     map: google.maps.Map,
