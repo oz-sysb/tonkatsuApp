@@ -103,7 +103,7 @@ function App() {
         <Tab>一覧</Tab>
       </TabList>
       <TabPanels>
-        <TabPanel>
+        <TabPanel p="0">
           <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
