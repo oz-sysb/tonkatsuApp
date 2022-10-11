@@ -97,7 +97,7 @@ function App() {
     );
 
   return (
-    <Tabs>
+    <Tabs isFitted>
       <TabList>
         <Tab>マップ</Tab>
         <Tab>一覧</Tab>
