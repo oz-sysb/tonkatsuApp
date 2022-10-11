@@ -1,7 +1,16 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
-import { useDisclosure, Spinner, Center } from '@chakra-ui/react';
+import {
+  useDisclosure,
+  Spinner,
+  Center,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from '@chakra-ui/react';
 
 const containerStyle = {
   width: '100vw',
@@ -88,38 +97,47 @@ function App() {
     );
 
   return (
-    <>
-      <GoogleMap
-        id="map"
-        mapContainerStyle={containerStyle}
-        center={currentPosition}
-        zoom={17}
-        onLoad={(map) => {
-          setTimeout(() => {
-            setTonkatsuPositions(map, currentPosition);
-          });
-        }}
-      >
-        {positions.length > 0 &&
-          positions.map((i, index) => (
-            <MarkerF
-              key={index}
-              position={i}
-              label={i.name}
-              onClick={() => {
-                setData(i);
-                onOpen();
-              }}
-            />
-          ))}
-      </GoogleMap>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        data={data}
-        currentPosition={currentPosition}
-      />
-    </>
+    <Tabs isFitted w="100vw" h="100vh">
+      <TabList>
+        <Tab>マップ</Tab>
+        <Tab>一覧</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel p="0" pt="1">
+          <GoogleMap
+            id="map"
+            mapContainerStyle={containerStyle}
+            center={currentPosition}
+            zoom={17}
+            onLoad={(map) => {
+              setTimeout(() => {
+                setTonkatsuPositions(map, currentPosition);
+              });
+            }}
+          >
+            {positions.length > 0 &&
+              positions.map((i, index) => (
+                <MarkerF
+                  key={index}
+                  position={i}
+                  label={i.name}
+                  onClick={() => {
+                    setData(i);
+                    onOpen();
+                  }}
+                />
+              ))}
+          </GoogleMap>
+          <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            data={data}
+            currentPosition={currentPosition}
+          />
+        </TabPanel>
+        <TabPanel>一覧ページ</TabPanel>
+      </TabPanels>
+    </Tabs>
   );
 }
 
