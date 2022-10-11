@@ -97,13 +97,13 @@ function App() {
     );
 
   return (
-    <Tabs isFitted>
+    <Tabs isFitted w="100vw" h="100vh">
       <TabList>
         <Tab>マップ</Tab>
         <Tab>一覧</Tab>
       </TabList>
       <TabPanels>
-        <TabPanel p="0">
+        <TabPanel p="0" pt="1">
           <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
