@@ -23,6 +23,7 @@ export type Data = {
   lng: number;
   name: string;
   photo: string;
+  rating: number;
 };
 
 export type Location = {
@@ -81,6 +82,7 @@ function App() {
               lng: result.geometry!.location!.lng(),
               name: result.name!,
               photo: resultPhoto,
+              rating: result.rating!,
             });
           });
           resolve(tmp);

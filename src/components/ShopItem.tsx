@@ -7,7 +7,8 @@ const ShopItem = ({ shop }: Props) => {
   return (
     <>
       <div>{shop.name}</div>
-      <div>{shop.photo}</div>
+      <img src={shop.photo} />
+      <div>{shop.rating}</div>
     </>
   );
 };
