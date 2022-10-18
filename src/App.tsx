@@ -11,6 +11,7 @@ import {
   TabPanels,
   TabPanel,
 } from '@chakra-ui/react';
+import ShopList from './components/ShopList';
 
 const containerStyle = {
   width: '100vw',
@@ -135,7 +136,9 @@ function App() {
             currentPosition={currentPosition}
           />
         </TabPanel>
-        <TabPanel>一覧ページ</TabPanel>
+        <TabPanel>
+          <ShopList shops={positions} />
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );
