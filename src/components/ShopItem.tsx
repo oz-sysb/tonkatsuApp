@@ -49,7 +49,6 @@ const ShopItem = ({ shop, currentPosition }: Props) => {
                 />
               ))}
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              {/* {property.reviewCount} reviews */}
               {shop.rating}
             </Box>
           </Box>
