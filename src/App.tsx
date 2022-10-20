@@ -139,7 +139,7 @@ function App() {
           />
         </TabPanel>
         <TabPanel>
-          <ShopList shops={positions} />
+          <ShopList shops={positions} currentPosition={currentPosition} />
         </TabPanel>
       </TabPanels>
     </Tabs>

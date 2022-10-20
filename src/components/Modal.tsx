@@ -9,14 +9,14 @@ import {
 } from '@chakra-ui/react';
 import { Data, Location } from '../App';
 
-type Prop = {
+type Props = {
   isOpen: boolean;
   onClose: () => void;
   data?: Data;
   currentPosition?: Location;
 };
 
-const MyModal = (props: Prop) => {
+const MyModal = (props: Props) => {
   return (
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
