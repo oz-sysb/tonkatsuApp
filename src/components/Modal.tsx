@@ -1,41 +1,26 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  Box,
-  Image,
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalBody } from '@chakra-ui/react';
 import { Data, Location } from '../App';
+import ShopItem from './ShopItem';
 
-type Prop = {
+type Props = {
   isOpen: boolean;
   onClose: () => void;
   data?: Data;
   currentPosition?: Location;
 };
 
-const MyModal = (props: Prop) => {
+const MyModal = (props: Props) => {
   return (
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
+        <ModalContent p={0}>
+          <ModalBody pt={25}>
             {props.data && (
-              <div>
-                {props.data.name}
-                <Box boxSize="sm">
-                  <Image src={props.data.photo} />
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&origin=${props.currentPosition?.lat}%2c${props.currentPosition?.lng}&destination=${props.data.lat}%2c${props.data.lng}&travelmode=walking`}
-                  >
-                    MAPを開く
-                  </a>
-                </Box>
-              </div>
+              <ShopItem
+                shop={props.data}
+                currentPosition={props.currentPosition}
+              />
             )}
           </ModalBody>
         </ModalContent>

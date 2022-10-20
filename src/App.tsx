@@ -11,6 +11,7 @@ import {
   TabPanels,
   TabPanel,
 } from '@chakra-ui/react';
+import ShopList from './components/ShopList';
 
 const containerStyle = {
   width: '100vw',
@@ -22,6 +23,7 @@ export type Data = {
   lng: number;
   name: string;
   photo: string;
+  rating: number;
 };
 
 export type Location = {
@@ -80,6 +82,7 @@ function App() {
               lng: result.geometry!.location!.lng(),
               name: result.name!,
               photo: resultPhoto,
+              rating: result.rating!,
             });
           });
           resolve(tmp);
@@ -135,7 +138,9 @@ function App() {
             currentPosition={currentPosition}
           />
         </TabPanel>
-        <TabPanel>一覧ページ</TabPanel>
+        <TabPanel>
+          <ShopList shops={positions} currentPosition={currentPosition} />
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );
