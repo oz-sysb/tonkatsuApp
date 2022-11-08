@@ -4,9 +4,9 @@ import { Shop, Location } from '../App';
 
 type Props = {
   shop: Shop;
-  currentPosition?: Location;
+  currentLocation?: Location;
 };
-const ShopItem = ({ shop, currentPosition }: Props) => {
+const ShopItem = ({ shop, currentLocation }: Props) => {
   return (
     <>
       <Box
@@ -22,7 +22,7 @@ const ShopItem = ({ shop, currentPosition }: Props) => {
           <Box display="flex" alignItems="baseline">
             <Badge borderRadius="full" px="2" colorScheme="teal">
               <a
-                href={`https://www.google.com/maps/dir/?api=1&origin=${currentPosition?.lat}%2c${currentPosition?.lng}&destination=${shop.lat}%2c${shop.lng}&travelmode=walking`}
+                href={`https://www.google.com/maps/dir/?api=1&origin=${currentLocation?.lat}%2c${currentLocation?.lng}&destination=${shop.location.lat}%2c${shop.location.lng}&travelmode=walking`}
               >
                 MAPを開く
               </a>

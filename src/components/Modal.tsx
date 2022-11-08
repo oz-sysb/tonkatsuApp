@@ -5,23 +5,18 @@ import ShopItem from './ShopItem';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  data?: Shop;
-  currentPosition?: Location;
+  shop?: Shop;
+  currentLocation?: Location;
 };
 
-const MyModal = (props: Props) => {
+const MyModal = ({ isOpen, onClose, shop, currentLocation }: Props) => {
   return (
     <>
-      <Modal isOpen={props.isOpen} onClose={props.onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent p={0}>
           <ModalBody pt={25}>
-            {props.data && (
-              <ShopItem
-                shop={props.data}
-                currentPosition={props.currentPosition}
-              />
-            )}
+            {shop && <ShopItem shop={shop} currentLocation={currentLocation} />}
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -3,14 +3,14 @@ import ShopItem from './ShopItem';
 
 type Props = {
   shops: Shop[];
-  currentPosition?: Location;
+  currentLocation?: Location;
 };
 
-const ShopList = ({ shops, currentPosition }: Props) => {
+const ShopList = ({ shops, currentLocation }: Props) => {
   return (
     <>
       {shops.map((item, i) => (
-        <ShopItem shop={item} currentPosition={currentPosition} key={i} />
+        <ShopItem shop={item} currentLocation={currentLocation} key={i} />
       ))}
     </>
   );
