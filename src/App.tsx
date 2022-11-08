@@ -1,6 +1,6 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
-import Modal from './components/Modal';
+import ShopModal from './components/ShopModal';
 import {
   useDisclosure,
   Spinner,
@@ -132,12 +132,14 @@ function App() {
                 />
               ))}
           </GoogleMap>
-          <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            shop={clickedShop}
-            currentLocation={currentLocation}
-          />
+          {clickedShop && currentLocation && (
+            <ShopModal
+              isOpen={isOpen}
+              onClose={onClose}
+              shop={clickedShop}
+              currentLocation={currentLocation}
+            />
+          )}
         </TabPanel>
         <TabPanel>
           <ShopList shops={shops} currentLocation={currentLocation} />

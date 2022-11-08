@@ -3,7 +3,7 @@ import ShopItem from './ShopItem';
 
 type Props = {
   shops: Shop[];
-  currentLocation?: Location;
+  currentLocation: Location;
 };
 
 const ShopList = ({ shops, currentLocation }: Props) => {
