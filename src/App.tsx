@@ -1,6 +1,6 @@
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
-import Modal from './components/Modal';
+import ShopModal from './components/ShopModal';
 import {
   useDisclosure,
   Spinner,
@@ -18,9 +18,8 @@ const containerStyle = {
   height: '100vh',
 };
 
-export type Data = {
-  lat: number;
-  lng: number;
+export type Shop = {
+  location: Location;
   name: string;
   photo: string;
   rating: number;
@@ -32,13 +31,13 @@ export type Location = {
 };
 
 function App() {
-  const [positions, setPositions] = useState<Data[]>([]);
-  const [data, setData] = useState<Data>();
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [clickedShop, setClickedShop] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [currentPosition, setCurrentPosition] = useState<Location>();
+  const [currentLocation, setCurrentLocation] = useState<Location>();
 
   const success: PositionCallback = (pos) => {
-    setCurrentPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
   };
 
   const fail: PositionErrorCallback = (error) => {
@@ -49,21 +48,21 @@ function App() {
     navigator.geolocation.getCurrentPosition(success, fail);
   }, []);
 
-  const setTonkatsuPositions = async (
+  const setTonkatsuLocation = async (
     map: google.maps.Map,
-    currentPos: Location
+    currentLocation: Location
   ) => {
     var service = new google.maps.places.PlacesService(map);
 
-    const r = await new Promise<Data[]>((resolve) => {
+    const r = await new Promise<Shop[]>((resolve) => {
       service.nearbySearch(
         {
           keyword: 'とんかつ',
-          location: currentPos,
+          location: currentLocation,
           radius: 2000,
         },
         (results) => {
-          const tmp: Data[] = [];
+          const tmp: Shop[] = [];
           console.log(
             'results',
             results,
@@ -78,8 +77,10 @@ function App() {
                 ? result.photos![0].getUrl()
                 : '';
             tmp.push({
-              lat: result.geometry!.location!.lat(),
-              lng: result.geometry!.location!.lng(),
+              location: {
+                lat: result.geometry!.location!.lat(),
+                lng: result.geometry!.location!.lng(),
+              },
               name: result.name!,
               photo: resultPhoto,
               rating: result.rating!,
@@ -89,10 +90,10 @@ function App() {
         }
       );
     });
-    setPositions(r);
+    setShops(r);
   };
 
-  if (!currentPosition)
+  if (!currentLocation)
     return (
       <Center h="100vh">
         <Spinner size="xl" />
@@ -110,36 +111,38 @@ function App() {
           <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
-            center={currentPosition}
+            center={currentLocation}
             zoom={17}
             onLoad={(map) => {
               setTimeout(() => {
-                setTonkatsuPositions(map, currentPosition);
+                setTonkatsuLocation(map, currentLocation);
               });
             }}
           >
-            {positions.length > 0 &&
-              positions.map((i, index) => (
+            {shops.length > 0 &&
+              shops.map((i, index) => (
                 <MarkerF
                   key={index}
-                  position={i}
+                  position={i.location}
                   label={i.name}
                   onClick={() => {
-                    setData(i);
+                    setClickedShop(i);
                     onOpen();
                   }}
                 />
               ))}
           </GoogleMap>
-          <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            data={data}
-            currentPosition={currentPosition}
-          />
+          {clickedShop && currentLocation && (
+            <ShopModal
+              isOpen={isOpen}
+              onClose={onClose}
+              shop={clickedShop}
+              currentLocation={currentLocation}
+            />
+          )}
         </TabPanel>
         <TabPanel>
-          <ShopList shops={positions} currentPosition={currentPosition} />
+          <ShopList shops={shops} currentLocation={currentLocation} />
         </TabPanel>
       </TabPanels>
     </Tabs>

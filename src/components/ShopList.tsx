@@ -1,16 +1,16 @@
-import { Data, Location } from '../App';
+import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
 type Props = {
-  shops: Data[];
-  currentPosition?: Location;
+  shops: Shop[];
+  currentLocation: Location;
 };
 
-const ShopList = ({ shops, currentPosition }: Props) => {
+const ShopList = ({ shops, currentLocation }: Props) => {
   return (
     <>
       {shops.map((item, i) => (
-        <ShopItem shop={item} currentPosition={currentPosition} key={i} />
+        <ShopItem shop={item} currentLocation={currentLocation} key={i} />
       ))}
     </>
   );
