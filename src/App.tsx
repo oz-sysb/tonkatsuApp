@@ -18,7 +18,7 @@ const containerStyle = {
   height: '100vh',
 };
 
-export type Data = {
+export type Shop = {
   lat: number;
   lng: number;
   name: string;
@@ -26,14 +26,15 @@ export type Data = {
   rating: number;
 };
 
+// TODO: 名前
 export type Location = {
   lat: number;
   lng: number;
 };
 
 function App() {
-  const [positions, setPositions] = useState<Data[]>([]);
-  const [data, setData] = useState<Data>();
+  const [positions, setPositions] = useState<Shop[]>([]);
+  const [data, setData] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentPosition, setCurrentPosition] = useState<Location>();
 
@@ -55,7 +56,7 @@ function App() {
   ) => {
     var service = new google.maps.places.PlacesService(map);
 
-    const r = await new Promise<Data[]>((resolve) => {
+    const r = await new Promise<Shop[]>((resolve) => {
       service.nearbySearch(
         {
           keyword: 'とんかつ',
@@ -63,7 +64,7 @@ function App() {
           radius: 2000,
         },
         (results) => {
-          const tmp: Data[] = [];
+          const tmp: Shop[] = [];
           console.log(
             'results',
             results,

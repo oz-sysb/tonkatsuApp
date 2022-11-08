@@ -1,11 +1,11 @@
 import { Modal, ModalOverlay, ModalContent, ModalBody } from '@chakra-ui/react';
-import { Data, Location } from '../App';
+import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  data?: Data;
+  data?: Shop;
   currentPosition?: Location;
 };
 

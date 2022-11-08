@@ -1,9 +1,9 @@
 import { Badge, Box, Image } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
-import { Data, Location } from '../App';
+import { Shop, Location } from '../App';
 
 type Props = {
-  shop: Data;
+  shop: Shop;
   currentPosition?: Location;
 };
 const ShopItem = ({ shop, currentPosition }: Props) => {

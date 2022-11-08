@@ -1,8 +1,8 @@
-import { Data, Location } from '../App';
+import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
 type Props = {
-  shops: Data[];
+  shops: Shop[];
   currentPosition?: Location;
 };
 
