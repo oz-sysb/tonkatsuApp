@@ -2,7 +2,7 @@ import { Badge, Box, Image } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { Shop, Location } from '../App';
 
-type Props = {
+export type Props = {
   shop: Shop;
   currentLocation: Location;
 };
