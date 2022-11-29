@@ -1,5 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Shop } from '../App';
+import { ComponentMeta } from '@storybook/react';
 import ShopItem, { Props } from './ShopItem';
 
 export default {
