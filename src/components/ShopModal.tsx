@@ -2,7 +2,7 @@ import { Modal, ModalOverlay, ModalContent, ModalBody } from '@chakra-ui/react';
 import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
-type Props = {
+export type Props = {
   isOpen: boolean;
   onClose: () => void;
   shop: Shop;
