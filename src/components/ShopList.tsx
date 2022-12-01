@@ -1,7 +1,7 @@
 import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
-type Props = {
+export type Props = {
   shops: Shop[];
   currentLocation: Location;
 };
