@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import ShopList, { Props } from './ShopList';
+import ShopList, { Props } from '../../components/ShopList';
 
 export default {
   title: 'Components/ShopList',

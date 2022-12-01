@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import ShopModal, { Props } from './ShopModal';
+import ShopModal, { Props } from '../../components/ShopModal';
 
 export default {
   title: 'Components/ShopModal',
