@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
@@ -20,7 +21,14 @@ const ShopList = ({ shops, currentLocation }: Props) => {
 
   return (
     <>
-      <button onClick={sortByRating}>評価順</button>
+      <Button
+        colorScheme="teal"
+        variant="outline"
+        mb={15}
+        onClick={sortByRating}
+      >
+        評価順
+      </Button>
       {sortedShops.map((item, i) => (
         <ShopItem shop={item} currentLocation={currentLocation} key={i} />
       ))}
