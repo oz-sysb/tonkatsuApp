@@ -33,11 +33,17 @@ export type Location = {
 function App() {
   const [shops, setShops] = useState<Shop[]>([]);
   const [clickedShop, setClickedShop] = useState<Shop>();
+  const [radius, setRadius] = useState<number>(2000);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
 
   const success: PositionCallback = (pos) => {
-    setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    console.log('setCurrent========');
+    setCurrentLocation({
+      ...currentLocation,
+      lat: pos.coords.latitude + Math.random() / 10000,
+      lng: pos.coords.longitude + Math.random() / 10000,
+    });
   };
 
   const fail: PositionErrorCallback = (error) => {
@@ -46,12 +52,15 @@ function App() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success, fail);
+    console.log('useEffect========');
   }, []);
 
   const setTonkatsuLocation = async (
     map: google.maps.Map,
     currentLocation: Location
   ) => {
+    console.log('setTonkatsuLocation=======');
+
     var service = new google.maps.places.PlacesService(map);
 
     const r = await new Promise<Shop[]>((resolve) => {
@@ -59,7 +68,7 @@ function App() {
         {
           keyword: 'とんかつ',
           location: currentLocation,
-          radius: 2000,
+          radius: radius,
         },
         (results) => {
           const tmp: Shop[] = [];
@@ -105,6 +114,7 @@ function App() {
       <TabList>
         <Tab>マップ</Tab>
         <Tab>一覧</Tab>
+        <div>{radius}</div>
       </TabList>
       <TabPanels>
         <TabPanel p="0" pt="1">
@@ -117,6 +127,7 @@ function App() {
               setTimeout(() => {
                 setTonkatsuLocation(map, currentLocation);
               });
+              console.log('App.tsx呼び出し');
             }}
           >
             {shops.length > 0 &&
@@ -142,7 +153,11 @@ function App() {
           )}
         </TabPanel>
         <TabPanel>
-          <ShopList shops={shops} currentLocation={currentLocation} />
+          <ShopList
+            shops={shops}
+            currentLocation={currentLocation}
+            setRadius={setRadius}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
