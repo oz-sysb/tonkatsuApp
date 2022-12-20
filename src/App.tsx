@@ -41,8 +41,9 @@ function App() {
   const [clickedShop, setClickedShop] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
-  const infoWindowOptions = {
+  const infoWindowOptions: google.maps.InfoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -40),
+    disableAutoPan: true,
   };
 
   const success: PositionCallback = (pos) => {
