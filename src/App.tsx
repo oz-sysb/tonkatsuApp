@@ -1,4 +1,4 @@
-import { GoogleMap, MarkerF } from '@react-google-maps/api';
+import { GoogleMap, InfoWindowF, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
 import ShopModal from './components/ShopModal';
 import {
@@ -30,11 +30,20 @@ export type Location = {
   lng: number;
 };
 
+const divStyle = {
+  background: 'white',
+  fontSize: 7.5,
+  fontWeight: 'bold',
+};
+
 function App() {
   const [shops, setShops] = useState<Shop[]>([]);
   const [clickedShop, setClickedShop] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
+  const infoWindowOptions = {
+    pixelOffset: new window.google.maps.Size(0, -40),
+  };
 
   const success: PositionCallback = (pos) => {
     setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
@@ -121,15 +130,23 @@ function App() {
           >
             {shops.length > 0 &&
               shops.map((i, index) => (
-                <MarkerF
-                  key={index}
-                  position={i.location}
-                  label={i.name}
-                  onClick={() => {
-                    setClickedShop(i);
-                    onOpen();
-                  }}
-                />
+                <div key={index}>
+                  <MarkerF
+                    position={i.location}
+                    onClick={() => {
+                      setClickedShop(i);
+                      onOpen();
+                    }}
+                  />
+                  <InfoWindowF
+                    position={i.location}
+                    options={infoWindowOptions}
+                  >
+                    <div style={divStyle}>
+                      <h1>{i.name}</h1>
+                    </div>
+                  </InfoWindowF>
+                </div>
               ))}
           </GoogleMap>
           {clickedShop && currentLocation && (
