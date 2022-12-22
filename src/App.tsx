@@ -143,7 +143,13 @@ function App() {
                     position={i.location}
                     options={infoWindowOptions}
                   >
-                    <div style={divStyle}>
+                    <div
+                      style={divStyle}
+                      onClick={() => {
+                        setClickedShop(i);
+                        onOpen();
+                      }}
+                    >
                       <h1>{i.name}</h1>
                     </div>
                   </InfoWindowF>
