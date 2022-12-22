@@ -115,6 +115,7 @@ function App() {
       <TabList>
         <Tab>マップ</Tab>
         <Tab>一覧</Tab>
+        <Tab>お気に入り</Tab>
       </TabList>
       <TabPanels>
         <TabPanel p="0" pt="1">
@@ -168,6 +169,7 @@ function App() {
         <TabPanel>
           <ShopList shops={shops} currentLocation={currentLocation} />
         </TabPanel>
+        <TabPanel>お気に入りページ</TabPanel>
       </TabPanels>
     </Tabs>
   );

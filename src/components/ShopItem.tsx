@@ -7,6 +7,17 @@ export type Props = {
   currentLocation: Location;
 };
 const ShopItem = ({ shop, currentLocation }: Props) => {
+  const setItemLocalStorage = () => {
+    const getItem = localStorage.getItem('favoriteShops');
+    if (!getItem) {
+      const favoriteShops: Shop[] = [shop];
+      localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
+      return;
+    }
+    const favoriteShops: Shop[] = JSON.parse(getItem);
+    favoriteShops.push(shop);
+    localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
+  };
   return (
     <Box
       mb={15}
@@ -51,6 +62,7 @@ const ShopItem = ({ shop, currentLocation }: Props) => {
             {shop.rating}
           </Box>
         </Box>
+        <button onClick={setItemLocalStorage}>お気に入りボタン</button>
       </Box>
     </Box>
   );
