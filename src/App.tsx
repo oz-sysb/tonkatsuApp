@@ -38,6 +38,7 @@ const divStyle = {
 
 function App() {
   const [shops, setShops] = useState<Shop[]>([]);
+  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
   const [clickedShop, setClickedShop] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
@@ -56,6 +57,11 @@ function App() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success, fail);
+    const fetchedFavoriteShops: Shop[] = JSON.parse(
+      localStorage.getItem('favoriteShops') ?? '[]'
+    );
+    setFavoriteShops(fetchedFavoriteShops);
+    console.log('App.tsx :setFavoriteShops');
   }, []);
 
   const setTonkatsuLocation = async (
@@ -169,7 +175,10 @@ function App() {
         <TabPanel>
           <ShopList shops={shops} currentLocation={currentLocation} />
         </TabPanel>
-        <TabPanel>お気に入りページ</TabPanel>
+        <TabPanel>
+          <p>お気に入りページ</p>
+          <ShopList shops={favoriteShops} currentLocation={currentLocation} />
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );
