@@ -12,6 +12,7 @@ import {
   TabPanel,
 } from '@chakra-ui/react';
 import ShopList from './components/ShopList';
+import FavoriteShops from './components/FavoriteShops';
 
 const containerStyle = {
   width: '100vw',
@@ -38,10 +39,10 @@ const divStyle = {
 
 function App() {
   const [shops, setShops] = useState<Shop[]>([]);
-  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
   const [clickedShop, setClickedShop] = useState<Shop>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
+  const [isFavoriteClicked, setIsFavoriteClicked] = useState<boolean>(false);
   const infoWindowOptions: google.maps.InfoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -40),
     disableAutoPan: true,
@@ -57,11 +58,6 @@ function App() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success, fail);
-    const fetchedFavoriteShops: Shop[] = JSON.parse(
-      localStorage.getItem('favoriteShops') ?? '[]'
-    );
-    setFavoriteShops(fetchedFavoriteShops);
-    console.log('App.tsx :setFavoriteShops');
   }, []);
 
   const setTonkatsuLocation = async (
@@ -119,9 +115,9 @@ function App() {
   return (
     <Tabs isFitted w="100vw" h="100vh">
       <TabList>
-        <Tab>マップ</Tab>
-        <Tab>一覧</Tab>
-        <Tab>お気に入り</Tab>
+        <Tab onClick={() => setIsFavoriteClicked(false)}>マップ</Tab>
+        <Tab onClick={() => setIsFavoriteClicked(false)}>一覧</Tab>
+        <Tab onClick={() => setIsFavoriteClicked(true)}>お気に入り</Tab>
       </TabList>
       <TabPanels>
         <TabPanel p="0" pt="1">
@@ -177,7 +173,10 @@ function App() {
         </TabPanel>
         <TabPanel>
           <p>お気に入りページ</p>
-          <ShopList shops={favoriteShops} currentLocation={currentLocation} />
+          <FavoriteShops
+            currentLocation={currentLocation}
+            isFavoriteClicked={isFavoriteClicked}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
