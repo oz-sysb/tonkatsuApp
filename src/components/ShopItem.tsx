@@ -1,23 +1,22 @@
 import { Badge, Box, Image } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { Shop, Location } from '../App';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import FavoriteButton from './FavoriteButton';
+import FavoriteShops from './FavoriteShops';
 
 export type Props = {
   shop: Shop;
   currentLocation: Location;
+  favoriteShops?: Shop[];
+  setFavoriteShops?: Dispatch<SetStateAction<Shop[]>>;
 };
-const ShopItem = ({ shop, currentLocation }: Props) => {
-  const setItemLocalStorage = () => {
-    const getItem = localStorage.getItem('favoriteShops');
-    if (!getItem) {
-      const favoriteShops: Shop[] = [shop];
-      localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
-      return;
-    }
-    const favoriteShops: Shop[] = JSON.parse(getItem);
-    favoriteShops.push(shop);
-    localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
-  };
+const ShopItem = ({
+  shop,
+  currentLocation,
+  favoriteShops,
+  setFavoriteShops,
+}: Props) => {
   return (
     <Box
       mb={15}
@@ -62,7 +61,12 @@ const ShopItem = ({ shop, currentLocation }: Props) => {
             {shop.rating}
           </Box>
         </Box>
-        <button onClick={setItemLocalStorage}>お気に入りボタン</button>
+        {/* <button onClick={setItemLocalStorage}>お気に入りボタン</button> */}
+        <FavoriteButton
+          shop={shop}
+          favoriteShops={favoriteShops}
+          setFavoriteShops={setFavoriteShops}
+        />
       </Box>
     </Box>
   );

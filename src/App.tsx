@@ -43,6 +43,7 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentLocation, setCurrentLocation] = useState<Location>();
   const [isFavoriteClicked, setIsFavoriteClicked] = useState<boolean>(false);
+  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
   const infoWindowOptions: google.maps.InfoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -40),
     disableAutoPan: true,
@@ -58,6 +59,11 @@ function App() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success, fail);
+    const fetchedFavoriteShops: Shop[] = JSON.parse(
+      localStorage.getItem('favoriteShops') ?? '[]'
+    );
+    setFavoriteShops(fetchedFavoriteShops);
+    console.log('App.tsxでlocalstorage取得');
   }, []);
 
   const setTonkatsuLocation = async (
@@ -165,6 +171,8 @@ function App() {
               onClose={onClose}
               shop={clickedShop}
               currentLocation={currentLocation}
+              favoriteShops={favoriteShops}
+              setFavoriteShops={setFavoriteShops}
             />
           )}
         </TabPanel>
