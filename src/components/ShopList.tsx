@@ -1,11 +1,13 @@
 import { Button } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { Shop, Location } from '../App';
 import ShopItem from './ShopItem';
 
 export type Props = {
   shops: Shop[];
   currentLocation: Location;
+  favoriteShops: Shop[];
+  setFavoriteShops: Dispatch<SetStateAction<Shop[]>>;
 };
 
 const R = Math.PI / 180;
@@ -27,7 +29,12 @@ const distanceToShop = (
   );
 };
 
-const ShopList = ({ shops, currentLocation }: Props) => {
+const ShopList = ({
+  shops,
+  currentLocation,
+  favoriteShops,
+  setFavoriteShops,
+}: Props) => {
   const [sortedShops, setSortedShops] = useState<Shop[]>(shops);
 
   useEffect(() => {
@@ -69,7 +76,13 @@ const ShopList = ({ shops, currentLocation }: Props) => {
         距離順
       </Button>
       {sortedShops.map((item, i) => (
-        <ShopItem shop={item} currentLocation={currentLocation} key={i} />
+        <ShopItem
+          shop={item}
+          currentLocation={currentLocation}
+          key={i}
+          favoriteShops={favoriteShops}
+          setFavoriteShops={setFavoriteShops}
+        />
       ))}
     </>
   );

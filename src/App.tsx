@@ -177,13 +177,20 @@ function App() {
           )}
         </TabPanel>
         <TabPanel>
-          <ShopList shops={shops} currentLocation={currentLocation} />
+          <ShopList
+            shops={shops}
+            currentLocation={currentLocation}
+            favoriteShops={favoriteShops}
+            setFavoriteShops={setFavoriteShops}
+          />
         </TabPanel>
         <TabPanel>
           <p>お気に入りページ</p>
           <FavoriteShops
             currentLocation={currentLocation}
             isFavoriteClicked={isFavoriteClicked}
+            favoriteShops={favoriteShops}
+            setFavoriteShops={setFavoriteShops}
           />
         </TabPanel>
       </TabPanels>

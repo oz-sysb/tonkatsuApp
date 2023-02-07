@@ -8,8 +8,8 @@ import FavoriteShops from './FavoriteShops';
 export type Props = {
   shop: Shop;
   currentLocation: Location;
-  favoriteShops?: Shop[];
-  setFavoriteShops?: Dispatch<SetStateAction<Shop[]>>;
+  favoriteShops: Shop[];
+  setFavoriteShops: Dispatch<SetStateAction<Shop[]>>;
 };
 const ShopItem = ({
   shop,
