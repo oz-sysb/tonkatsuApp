@@ -7,17 +7,14 @@ export type Props = {
   setFavoriteShops: Dispatch<SetStateAction<Shop[]>>;
 };
 
-// 1. 渡ってきたデータをもとに既に登録されているかどうかの判定
-// - favoriteShopsをlocalstoragenに反映
-// - 他のページにも反映
-// 2. 判定結果によって状態を定義useReducer
-// 3. 状態によってUIの変更
-// 4. お気に入り削除も同様に行う
-
 const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
   const [isFavoriteShop, setIsFavoriteShop] = useState<boolean>(
-    favoriteShops?.some((i) => {
-      return i.location === shop.location && i.name === shop.name;
+    favoriteShops.some((i) => {
+      return (
+        i.location.lat === shop.location.lat &&
+        i.location.lng === shop.location.lng &&
+        i.name === shop.name
+      );
     })
   );
 
@@ -35,13 +32,40 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
 
   return (
     <div>
+      {favoriteShops.map((s) => {
+        return (
+          <div key={s.name}>
+            {s.location.lng} {s.location.lat} {s.name}
+          </div>
+        );
+      })}
       {isFavoriteShop ? (
-        <div>お気に入り削除 {favoriteShops.length}</div>
+        <div
+          onClick={() => {
+            // App.tsxのuseStateであるfavoriteShopsから削除
+            const favoriteShopsFilter = favoriteShops.filter((i) => {
+              return !(
+                i.location.lat === shop.location.lat &&
+                i.location.lng === shop.location.lng
+              );
+            });
+            setFavoriteShops(favoriteShopsFilter);
+            // FavoriteButtonのuseStateであるisFavoriteShopをtrueにする
+            setIsFavoriteShop(!isFavoriteShop);
+            // localstorageに登録
+          }}
+        >
+          お気に入り削除 {favoriteShops.length}
+        </div>
       ) : (
         <div
           onClick={() => {
+            // App.tsxのuseStateであるfavoriteShopsに追加
             setFavoriteShops([...favoriteShops, shop]);
+            // FavoriteButtonのuseStateであるisFavoriteShopをfalseにする
             setIsFavoriteShop(!isFavoriteShop);
+            // localstorageに登録
+            setItemLocalStorage();
           }}
         >
           お気に入り追加 {favoriteShops.length}
