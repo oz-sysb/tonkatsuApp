@@ -52,7 +52,11 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
             setFavoriteShops(favoriteShopsFilter);
             // FavoriteButtonのuseStateであるisFavoriteShopをtrueにする
             setIsFavoriteShop(!isFavoriteShop);
-            // localstorageに登録
+            // 削除後localstorageに登録
+            localStorage.setItem(
+              'favoriteShops',
+              JSON.stringify(favoriteShopsFilter)
+            );
           }}
         >
           お気に入り削除 {favoriteShops.length}
