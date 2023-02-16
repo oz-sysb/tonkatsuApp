@@ -1,5 +1,5 @@
 import { GoogleMap, InfoWindowF, MarkerF } from '@react-google-maps/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ShopModal from './components/ShopModal';
 import {
   useDisclosure,
@@ -48,6 +48,8 @@ function App() {
     pixelOffset: new window.google.maps.Size(0, -40),
     disableAutoPan: true,
   };
+  // refをtrueで初期化
+  const ref = useRef(true);
 
   const success: PositionCallback = (pos) => {
     setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
@@ -65,6 +67,16 @@ function App() {
     setFavoriteShops(fetchedFavoriteShops);
     console.log('App.tsxでlocalstorage取得');
   }, []);
+
+  useEffect(() => {
+    // 初回レンダリング時はrefをfalseにして、return
+    if (ref.current) {
+      ref.current = false;
+      return;
+    }
+    localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
+    console.log('App.tsxのuseEffect: favoriteShops');
+  }, [favoriteShops]);
 
   const setTonkatsuLocation = async (
     map: google.maps.Map,

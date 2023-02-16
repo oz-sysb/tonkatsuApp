@@ -18,18 +18,6 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
     })
   );
 
-  const setItemLocalStorage = () => {
-    const getItem = localStorage.getItem('favoriteShops');
-    if (!getItem) {
-      const favoriteShops: Shop[] = [shop];
-      localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
-      return;
-    }
-    const favoriteShops: Shop[] = JSON.parse(getItem);
-    favoriteShops.push(shop);
-    localStorage.setItem('favoriteShops', JSON.stringify(favoriteShops));
-  };
-
   return (
     <div>
       {favoriteShops.map((s) => {
@@ -52,11 +40,6 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
             setFavoriteShops(favoriteShopsFilter);
             // FavoriteButtonのuseStateであるisFavoriteShopをtrueにする
             setIsFavoriteShop(!isFavoriteShop);
-            // 削除後localstorageに登録
-            localStorage.setItem(
-              'favoriteShops',
-              JSON.stringify(favoriteShopsFilter)
-            );
           }}
         >
           お気に入り削除 {favoriteShops.length}
@@ -68,8 +51,6 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
             setFavoriteShops([...favoriteShops, shop]);
             // FavoriteButtonのuseStateであるisFavoriteShopをfalseにする
             setIsFavoriteShop(!isFavoriteShop);
-            // localstorageに登録
-            setItemLocalStorage();
           }}
         >
           お気に入り追加 {favoriteShops.length}
