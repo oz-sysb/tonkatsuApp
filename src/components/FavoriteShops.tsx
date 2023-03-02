@@ -21,6 +21,7 @@ const FavoriteShops = ({
     );
     setFavoriteShops(fetchedFavoriteShops);
     console.log('FavoriteShopsタイミング');
+    // eslint-disable-next-line
   }, [isFavoriteClicked]);
   return (
     <ShopList
