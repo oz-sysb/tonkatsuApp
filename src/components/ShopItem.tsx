@@ -48,25 +48,31 @@ const ShopItem = ({
           {shop.name}
         </Box>
 
-        <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < shop.rating ? 'teal.500' : 'gray.300'}
-              />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {shop.rating}
+        <Box
+          display="flex"
+          mt="2"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Box display="flex" alignItems="center">
+            {Array(5)
+              .fill('')
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  color={i < shop.rating ? 'teal.500' : 'gray.300'}
+                />
+              ))}
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              {shop.rating}
+            </Box>
           </Box>
+          <FavoriteButton
+            shop={shop}
+            favoriteShops={favoriteShops}
+            setFavoriteShops={setFavoriteShops}
+          />
         </Box>
-        {/* <button onClick={setItemLocalStorage}>お気に入りボタン</button> */}
-        <FavoriteButton
-          shop={shop}
-          favoriteShops={favoriteShops}
-          setFavoriteShops={setFavoriteShops}
-        />
       </Box>
     </Box>
   );
