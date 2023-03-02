@@ -1,9 +1,8 @@
 import { Badge, Box, Image } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { Shop, Location } from '../App';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import FavoriteButton from './FavoriteButton';
-import FavoriteShops from './FavoriteShops';
 
 export type Props = {
   shop: Shop;
