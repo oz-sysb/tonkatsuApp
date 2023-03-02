@@ -1,12 +1,21 @@
 import { Badge, Box, Image } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { Shop, Location } from '../App';
+import { Dispatch, SetStateAction } from 'react';
+import FavoriteButton from './FavoriteButton';
 
 export type Props = {
   shop: Shop;
   currentLocation: Location;
+  favoriteShops: Shop[];
+  setFavoriteShops: Dispatch<SetStateAction<Shop[]>>;
 };
-const ShopItem = ({ shop, currentLocation }: Props) => {
+const ShopItem = ({
+  shop,
+  currentLocation,
+  favoriteShops,
+  setFavoriteShops,
+}: Props) => {
   return (
     <Box
       mb={15}
@@ -38,18 +47,30 @@ const ShopItem = ({ shop, currentLocation }: Props) => {
           {shop.name}
         </Box>
 
-        <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < shop.rating ? 'teal.500' : 'gray.300'}
-              />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {shop.rating}
+        <Box
+          display="flex"
+          mt="2"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Box display="flex" alignItems="center">
+            {Array(5)
+              .fill('')
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  color={i < shop.rating ? 'teal.500' : 'gray.300'}
+                />
+              ))}
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              {shop.rating}
+            </Box>
           </Box>
+          <FavoriteButton
+            shop={shop}
+            favoriteShops={favoriteShops}
+            setFavoriteShops={setFavoriteShops}
+          />
         </Box>
       </Box>
     </Box>
