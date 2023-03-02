@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { Shop } from '../App';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { IconButton } from '@chakra-ui/react';
 
 export type Props = {
   shop: Shop;
@@ -20,15 +22,8 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
 
   return (
     <div>
-      {favoriteShops.map((s) => {
-        return (
-          <div key={s.name}>
-            {s.location.lng} {s.location.lat} {s.name}
-          </div>
-        );
-      })}
       {isFavoriteShop ? (
-        <div
+        <IconButton
           onClick={() => {
             // App.tsxのuseStateであるfavoriteShopsから削除
             const favoriteShopsFilter = favoriteShops.filter((i) => {
@@ -41,20 +36,28 @@ const FavoriteButton = ({ shop, favoriteShops, setFavoriteShops }: Props) => {
             // FavoriteButtonのuseStateであるisFavoriteShopをtrueにする
             setIsFavoriteShop(!isFavoriteShop);
           }}
-        >
-          お気に入り削除 {favoriteShops.length}
-        </div>
+          aria-label="お気に入り削除ボタン"
+          variant="outline"
+          colorScheme="red"
+          size="sm"
+          isRound
+          icon={<AiFillHeart />}
+        />
       ) : (
-        <div
+        <IconButton
           onClick={() => {
             // App.tsxのuseStateであるfavoriteShopsに追加
             setFavoriteShops([...favoriteShops, shop]);
             // FavoriteButtonのuseStateであるisFavoriteShopをfalseにする
             setIsFavoriteShop(!isFavoriteShop);
           }}
-        >
-          お気に入り追加 {favoriteShops.length}
-        </div>
+          aria-label="お気に入り追加ボタン"
+          variant="outline"
+          colorScheme="red"
+          size="sm"
+          isRound
+          icon={<AiOutlineHeart />}
+        />
       )}
     </div>
   );
